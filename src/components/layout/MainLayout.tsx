@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet, Navigate, NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { Building, LogOut, LayoutDashboard, AlertTriangle, Bell, Shield, FileClock, IndianRupee, CreditCard, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Building, LogOut, LayoutDashboard, AlertTriangle, Bell, Shield, FileClock, IndianRupee, CreditCard, ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../services/firebase';
@@ -11,6 +11,7 @@ export default function MainLayout() {
   const { currentUser, userProfile, loading } = useAuth();
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   if (loading) {
     return (
@@ -32,9 +33,15 @@ export default function MainLayout() {
 
   const NavItem = ({ to, icon: Icon, children }: { to: string, icon: LucideIcon, children: React.ReactNode }) => {
     const isActive = location.pathname === to || (to !== '/' && location.pathname.startsWith(to));
+    const handleClick = () => {
+      if (window.innerWidth < 768) {
+        setMobileMenuOpen(false);
+      }
+    };
     return (
       <NavLink
         to={to}
+        onClick={handleClick}
         className={`relative flex items-center px-4 py-3 my-1 rounded-xl transition-colors group ${
           isActive ? 'text-white' : 'text-gray-400 hover:text-indigo-400'
         }`}
@@ -94,16 +101,39 @@ export default function MainLayout() {
         />
       </div>
 
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 md:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Sidebar Navigation */}
       <motion.aside 
-        animate={{ width: collapsed ? 80 : 280 }}
-        className="relative bg-white/5 backdrop-blur-2xl border border-white/10 flex flex-col hidden md:flex shadow-[0_8px_30px_rgb(0,0,0,0.12)] m-4 rounded-[2rem] z-40"
+        animate={{ width: collapsed && !mobileMenuOpen ? 80 : 280 }}
+        className={`fixed md:relative top-0 left-0 h-[calc(100vh-2rem)] md:h-auto bg-[#0f172a]/95 md:bg-white/5 backdrop-blur-3xl md:backdrop-blur-2xl border border-white/10 flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.3)] md:shadow-[0_8px_30px_rgb(0,0,0,0.12)] m-4 rounded-[2rem] z-40 transition-transform duration-300 ease-in-out ${
+          mobileMenuOpen ? 'translate-x-0' : '-translate-x-[150%] md:translate-x-0'
+        }`}
       >
         <button 
           onClick={() => setCollapsed(!collapsed)}
-          className="absolute -right-3 top-10 bg-white/10 backdrop-blur-md border border-white/20 shadow-md rounded-full p-1.5 text-gray-300 hover:text-white z-50 transition-transform hover:scale-110"
+          className="hidden md:block absolute -right-3 top-10 bg-white/10 backdrop-blur-md border border-white/20 shadow-md rounded-full p-1.5 text-gray-300 hover:text-white z-50 transition-transform hover:scale-110"
         >
           {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+        </button>
+
+        {/* Mobile close button */}
+        <button 
+          onClick={() => setMobileMenuOpen(false)}
+          className="md:hidden absolute right-4 top-6 text-gray-400 hover:text-white z-50 p-2"
+        >
+          <X className="w-6 h-6" />
         </button>
 
         <div className="p-6 border-b border-white/10 flex items-center justify-center h-28 shrink-0">
@@ -201,7 +231,22 @@ export default function MainLayout() {
       </motion.aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 overflow-y-auto custom-scrollbar relative px-4 md:px-8 py-8">
+      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+        {/* Mobile Topbar */}
+        <div className="md:hidden flex items-center justify-between p-4 border-b border-white/10 bg-white/5 backdrop-blur-md z-20">
+          <div className="flex items-center space-x-2">
+            <Building className="w-6 h-6 text-indigo-400" />
+            <span className="text-xl font-bold text-white">SocietyEase</span>
+          </div>
+          <button 
+            onClick={() => setMobileMenuOpen(true)}
+            className="p-2 text-gray-300 hover:text-white bg-white/10 rounded-xl"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
+
+        <main className="flex-1 overflow-y-auto custom-scrollbar relative px-4 md:px-8 py-6 md:py-8">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -214,7 +259,8 @@ export default function MainLayout() {
             <Outlet />
           </motion.div>
         </AnimatePresence>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }
