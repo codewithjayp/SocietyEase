@@ -262,7 +262,7 @@ export default function GuardPortal() {
                 <div className="mt-2">
                   <QRScanner 
                     onScanSuccess={handleQRScan} 
-                    onScanFailure={(err) => {
+                    onScanFailure={() => {
                       // Optionally log or handle scan failures, though html5-qrcode triggers this often when no QR is found
                     }} 
                   />
