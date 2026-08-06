@@ -1,3 +1,13 @@
+/**
+ * ARCHITECTURE & FLOW: firebase.ts
+ * 
+ * This file acts as the bridge between your local application and the Firebase Backend.
+ * It initializes the Firebase SDK with your specific project credentials.
+ * 
+ * - `auth`: Used by AuthContext.tsx for logging users in and out.
+ * - `db`: The Firestore database instance used by useFirestore.ts to read/write data.
+ * - `storage`: Used for uploading files (like profile pictures or complaint attachments) in the future.
+ */
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";

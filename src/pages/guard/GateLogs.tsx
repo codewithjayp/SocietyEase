@@ -1,3 +1,10 @@
+/**
+ * ARCHITECTURE & FLOW: GateLogs.tsx
+ * 
+ * A historical record view for Security Guards.
+ * It fetches the `gate_logs` collection from Firestore to show who entered, 
+ * when they entered, and whether they had a pass or were an uninvited visitor.
+ */
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../components/ui/Card';
 import { useGateLogs } from '../../hooks/useFirestore';
 import { FileClock, CheckCircle2, LogOut, Share2 } from 'lucide-react';

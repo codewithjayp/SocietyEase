@@ -1,3 +1,9 @@
+/**
+ * ARCHITECTURE & FLOW: types/index.ts
+ * 
+ * The single source of truth for all data shapes in the application.
+ * Every object fetched from Firestore should be cast to one of these interfaces.
+ */
 export type Role = "admin" | "resident" | "guard";
 
 export interface UserProfile {

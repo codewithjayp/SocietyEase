@@ -1,3 +1,11 @@
+/**
+ * ARCHITECTURE & FLOW: Register.tsx
+ * 
+ * Handles the user sign-up process.
+ * 1. Creates the auth credentials in Firebase Auth.
+ * 2. Creates a corresponding 'UserProfile' document in Firestore with the default role of 'resident'.
+ * 3. Sends a verification email.
+ */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Eye, EyeOff, Building, ArrowRight, CheckCircle2 } from 'lucide-react';

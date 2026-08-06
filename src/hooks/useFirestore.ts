@@ -1,3 +1,17 @@
+/**
+ * ARCHITECTURE & FLOW: useFirestore.ts
+ * 
+ * This file serves as the data-access layer for the entire application.
+ * Instead of UI components talking directly to the database, they call these React Query hooks.
+ * 
+ * Why React Query?
+ * - It automatically caches data (e.g., if you switch tabs, it doesn't re-download everything immediately).
+ * - It handles loading states (`isLoading`) automatically.
+ * - When a mutation (like `addComplaint`) succeeds, it automatically invalidates the cache,
+ *   forcing the UI to refresh with the new data seamlessly.
+ * 
+ * All queries are scoped to the specific society document: `SOCIETY_001`.
+ */
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { collection, getDocs, query, where, addDoc, serverTimestamp, orderBy, getCountFromServer, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../services/firebase';

@@ -8,14 +8,21 @@ import { shareContent } from '../../utils/share';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '../../components/ui/Dialog';
 
 export default function ResidentBilling() {
+  // Retrieve the resident's profile (including their UID) from the auth context
   const { userProfile } = useAuth();
+  
+  // 1. Fetch only the bills belonging to THIS specific resident
   const { data: bills, isLoading } = useBills(userProfile?.uid);
+  
+  // 2. Access the mutation hook to update a bill to "paid" status
   const updateBillMutation = useUpdateBillStatus();
 
+  // Local state for handling the payment simulation UI workflow
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [selectedBillId, setSelectedBillId] = useState<string | null>(null);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
 
+  // Derive summary statistics (total outstanding) for the dashboard card
   const pendingBills = bills?.filter(b => b.status === 'unpaid') || [];
   const totalPending = pendingBills.reduce((sum, bill) => sum + bill.amount, 0);
 
@@ -26,25 +33,31 @@ export default function ResidentBilling() {
     }).format(amount);
   };
 
+  // Triggered when a resident clicks "Pay Now" on a specific bill
   const handlePayClick = (billId: string) => {
     setSelectedBillId(billId);
     setPaymentSuccess(false);
     setPaymentModalOpen(true);
   };
 
+  // Simulates a payment gateway process
   const processPayment = async () => {
     if (!selectedBillId) return;
     
+    // Updates the specific bill's status to 'paid' in Firestore
     await updateBillMutation.mutateAsync({
       id: selectedBillId,
       status: 'paid'
     });
     
+    // Show the success animation in the modal
     setPaymentSuccess(true);
+    
+    // Close the modal automatically after 2 seconds
     setTimeout(() => {
       setPaymentModalOpen(false);
       setSelectedBillId(null);
-    }, 2000); // Close after showing success for 2 seconds
+    }, 2000); 
   };
 
   return (

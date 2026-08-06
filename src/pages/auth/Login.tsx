@@ -19,26 +19,31 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent standard form submission refresh
     setError(null);
     setIsLoading(true);
 
     try {
+      // 1. Authenticate user credentials with Firebase Auth
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       
+      // 2. Fetch the corresponding custom profile from Firestore Database
       const userDocRef = doc(db, 'SOCIETY_001', 'data', 'users', user.uid);
       const userDocSnap = await getDoc(userDocRef);
       
+      // 3. Security check: Ensure the user actually has a valid society profile assigned by an Admin
       if (!userDocSnap.exists()) {
-        await auth.signOut();
+        await auth.signOut(); // Immediately log out invalid profiles
         setError('No society profile found for this account. Please ask an administrator to set up your profile, or register a new account.');
         setIsLoading(false);
         return;
       }
 
+      // 4. Success! Redirect to root, where App.tsx will route them to the correct role dashboard
       navigate('/');
     } catch (err: any) {
+      // Handle known Firebase Auth errors gracefully for the user
       console.error(err);
       let errorMessage = 'An error occurred during login. Please try again.';
       if (err.code === 'auth/invalid-email') {

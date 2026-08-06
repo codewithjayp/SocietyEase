@@ -1,3 +1,10 @@
+/**
+ * ARCHITECTURE & FLOW: AdminExpenses.tsx
+ * 
+ * This handles the society's internal accounting (outflows). Admins can log where
+ * maintenance money is being spent (e.g., repairs, salaries). It uses the 
+ * `useExpenses` hook to fetch and display the financial history.
+ */
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';

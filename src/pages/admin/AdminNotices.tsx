@@ -1,3 +1,10 @@
+/**
+ * ARCHITECTURE & FLOW: AdminNotices.tsx
+ * 
+ * This component allows admins to broadcast announcements to the entire society.
+ * It uses the `useAddNotice` mutation to write to Firestore, which then triggers
+ * a UI update for all Residents viewing their home screen.
+ */
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';

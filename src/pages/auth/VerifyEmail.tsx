@@ -1,3 +1,9 @@
+/**
+ * ARCHITECTURE & FLOW: VerifyEmail.tsx
+ * 
+ * Enforces email verification before a user can access the rest of the application.
+ * Users are sent here by the `ProtectedRoute` component if `currentUser.emailVerified` is false.
+ */
 import { useState, useEffect } from 'react';
 import { sendEmailVerification } from 'firebase/auth';
 import { useAuth } from '../../context/AuthContext';

@@ -7,11 +7,14 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../../services/firebase';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// MainLayout acts as the primary shell for all authenticated pages.
+// It contains the persistent Sidebar (for desktop) / Topbar (for mobile)
+// and handles rendering the specific page content inside the <Outlet />
 export default function MainLayout() {
   const { currentUser, userProfile, loading } = useAuth();
-  const location = useLocation();
-  const [collapsed, setCollapsed] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation(); // Used to determine which nav item is active
+  const [collapsed, setCollapsed] = useState(false); // Controls desktop sidebar width
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Controls mobile drawer
 
   if (loading) {
     return (

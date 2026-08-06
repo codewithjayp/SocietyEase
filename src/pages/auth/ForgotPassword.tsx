@@ -1,3 +1,8 @@
+/**
+ * ARCHITECTURE & FLOW: ForgotPassword.tsx
+ * 
+ * Uses Firebase Auth's `sendPasswordResetEmail` to help users recover their accounts.
+ */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Building, ArrowRight, ArrowLeft } from 'lucide-react';

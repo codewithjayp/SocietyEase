@@ -20,24 +20,30 @@ const AuthContext = createContext<AuthContextType>({
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Global state to store the Firebase Auth User
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  
+  // Global state to store the custom user profile data from Firestore
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  
+  // Loading state prevents the app from rendering protected routes before checking auth status
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Listen for authentication state changes (login, logout, token refresh)
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
       
       if (user) {
         try {
+          // If a user is logged in, fetch their custom role and profile data from Firestore
           const userDocRef = doc(db, 'SOCIETY_001', 'data', 'users', user.uid);
           const userDocSnap = await getDoc(userDocRef);
           
           if (userDocSnap.exists()) {
             setUserProfile(userDocSnap.data() as UserProfile);
           } else {
-            // Document doesn't exist, maybe they just registered but the document hasn't been created yet.
-            // In a real app we'd wait or redirect to a profile completion step.
+            // Profile missing: User might be newly registered or document creation failed
             setUserProfile(null);
           }
         } catch (error) {
@@ -45,17 +51,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setUserProfile(null);
         }
       } else {
+        // No user is logged in, clear the profile
         setUserProfile(null);
       }
       
+      // Auth check complete, allow the application to render
       setLoading(false);
     });
 
+    // Cleanup the listener when the component unmounts
     return () => unsubscribe();
   }, []);
 
   return (
     <AuthContext.Provider value={{ currentUser, userProfile, loading }}>
+      {/* Only render children (the app) once the initial auth check finishes */}
       {!loading && children}
     </AuthContext.Provider>
   );

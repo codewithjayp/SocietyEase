@@ -1,3 +1,10 @@
+/**
+ * ARCHITECTURE & FLOW: ResidentHome.tsx
+ * 
+ * This is the central hub for users with the 'resident' role.
+ * It pulls data relevant to them (Notices, their own Complaints) and allows them 
+ * to generate Visitor Passes which the Guard can scan.
+ */
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Bell, CreditCard, AlertTriangle, QrCode, Plus } from 'lucide-react';

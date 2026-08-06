@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Suspense, lazy } from 'react';
+import ScrollToTop from './components/ui/ScrollToTop';
 
 // Layouts
 import MainLayout from './components/layout/MainLayout';
@@ -31,10 +32,12 @@ const ResidentBilling = lazy(() => import('./pages/resident/ResidentBilling'));
 const GuardPortal = lazy(() => import('./pages/guard/GuardPortal'));
 const GateLogs = lazy(() => import('./pages/guard/GateLogs'));
 
-// Component to handle root redirect based on authentication
+// RootRedirect handles what happens when a user navigates to the base URL ("/")
+// It acts as a traffic controller based on the user's authentication and role status.
 const RootRedirect = () => {
   const { currentUser, userProfile, loading } = useAuth();
 
+  // 1. Wait for Firebase to finish checking auth state
   if (loading) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -43,14 +46,17 @@ const RootRedirect = () => {
     );
   }
 
+  // 2. If no user is logged in, or their profile hasn't loaded, send them to login
   if (!currentUser || !userProfile) {
     return <Navigate to="/login" replace />;
   }
 
+  // 3. If they are logged in but haven't verified their email, enforce verification
   if (!currentUser.emailVerified) {
     return <Navigate to="/verify-email" replace />;
   }
 
+  // 4. User is fully authenticated. Route them to their specific dashboard based on role.
   switch (userProfile.role) {
     case 'admin':
       return <Navigate to="/admin/dashboard" replace />;
@@ -101,10 +107,18 @@ function AppRoutes() {
   );
 }
 
+/**
+ * App Component
+ * 
+ * The root component of the application. It wraps the routing logic,
+ * authentication context, and common UI elements like the ScrollToTop button.
+ */
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        {/* ScrollToTop is placed here so it's available on all routes */}
+        <ScrollToTop />
         <Suspense fallback={<PageLoader />}>
           <AppRoutes />
         </Suspense>

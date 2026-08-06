@@ -1,3 +1,10 @@
+/**
+ * ARCHITECTURE & FLOW: AdminBilling.tsx
+ * 
+ * This handles the society's income (inflows). Admins can generate maintenance bills
+ * for specific residents. It fetches all residents using the `useUsers` hook, allows
+ * bill creation via `useAddBill`, and monitors payment status across the society.
+ */
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';

@@ -7,13 +7,21 @@ import type { Complaint } from '../../types';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AdminComplaints() {
+  // 1. Fetch all complaints from Firestore via a custom React Query hook
   const { data: complaints, isLoading } = useComplaints();
+  
+  // 2. Access the mutation hook to update the status of a specific complaint
   const updateStatus = useUpdateComplaintStatus();
+  
+  // 3. Local state to handle UI filtering without needing to re-fetch from the database
   const [filter, setFilter] = useState<'all' | 'pending' | 'in_progress' | 'resolved'>('all');
 
+  // Derive the displayed complaints based on the currently selected filter
   const filteredComplaints = complaints?.filter(c => filter === 'all' || c.status === filter) || [];
 
+  // Handler for when an admin changes a complaint's status via the dropdown
   const handleStatusChange = async (id: string, newStatus: Complaint['status']) => {
+    // Triggers the React Query mutation, updating Firestore and invalidating the local cache
     await updateStatus.mutateAsync({ id, status: newStatus });
   };
 

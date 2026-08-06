@@ -1,4 +1,11 @@
 
+/**
+ * ARCHITECTURE & FLOW: AdminDashboard.tsx
+ * 
+ * This is the central hub for users with the 'admin' role. 
+ * It aggregates data from multiple collections (users, complaints, financials) 
+ * to display high-level metrics and a summary of recent activity.
+ */
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Users, FileText, AlertTriangle, ShieldCheck, ChevronRight } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
