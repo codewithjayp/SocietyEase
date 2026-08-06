@@ -332,13 +332,13 @@ export default function ResidentHome() {
                   <Label htmlFor="visitorType">Visitor Type</Label>
                   <select 
                     id="visitorType"
-                    className="flex h-11 w-full rounded-xl border border-white/10 bg-[#020617]/50 backdrop-blur-sm px-3 py-2 text-sm text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:border-indigo-500"
+                    className="flex h-11 w-full rounded-xl border border-white/10 bg-[#181c20]/50 backdrop-blur-sm px-3 py-2 text-sm text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:border-indigo-500"
                     value={visitorType}
                     onChange={(e) => setVisitorType(e.target.value as any)}
                   >
-                    <option value="guest" className="bg-[#020617]">Guest</option>
-                    <option value="delivery" className="bg-[#020617]">Delivery</option>
-                    <option value="service" className="bg-[#020617]">Service/Repair</option>
+                    <option value="guest" className="bg-[#181c20]">Guest</option>
+                    <option value="delivery" className="bg-[#181c20]">Delivery</option>
+                    <option value="service" className="bg-[#181c20]">Service/Repair</option>
                   </select>
                 </div>
 

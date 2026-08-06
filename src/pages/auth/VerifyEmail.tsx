@@ -52,7 +52,7 @@ export default function VerifyEmail() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#020617] p-4 relative overflow-hidden">
+    <div className="flex min-h-screen items-center justify-center bg-[#181c20] p-4 relative overflow-hidden">
       {/* Background glowing orbs */}
       <div className="absolute top-0 -left-4 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-blob"></div>
       <div className="absolute top-0 -right-4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-blob animation-delay-2000"></div>

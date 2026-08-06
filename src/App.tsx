@@ -1,24 +1,35 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { Suspense, lazy } from 'react';
 
 // Layouts
 import MainLayout from './components/layout/MainLayout';
 
-// Pages
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
-import VerifyEmail from './pages/auth/VerifyEmail';
-import ForgotPassword from './pages/auth/ForgotPassword';
-import ResidentHome from './pages/resident/ResidentHome';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import AdminComplaints from './pages/admin/AdminComplaints';
-import AdminNotices from './pages/admin/AdminNotices';
-import AdminExpenses from './pages/admin/AdminExpenses';
-import AdminBilling from './pages/admin/AdminBilling';
-import ResidentBilling from './pages/resident/ResidentBilling';
-import GuardPortal from './pages/guard/GuardPortal';
-import GateLogs from './pages/guard/GateLogs';
+// Loading Component
+const PageLoader = () => (
+  <div className="flex h-screen w-full items-center justify-center bg-[#181c20]">
+    <div className="flex flex-col items-center space-y-4">
+      <div className="h-12 w-12 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent shadow-[0_0_15px_rgba(79,70,229,0.5)]"></div>
+      <p className="text-indigo-400 font-medium animate-pulse text-sm">Loading...</p>
+    </div>
+  </div>
+);
+
+// Lazy Loaded Pages
+const Login = lazy(() => import('./pages/auth/Login'));
+const Register = lazy(() => import('./pages/auth/Register'));
+const VerifyEmail = lazy(() => import('./pages/auth/VerifyEmail'));
+const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'));
+const ResidentHome = lazy(() => import('./pages/resident/ResidentHome'));
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const AdminComplaints = lazy(() => import('./pages/admin/AdminComplaints'));
+const AdminNotices = lazy(() => import('./pages/admin/AdminNotices'));
+const AdminExpenses = lazy(() => import('./pages/admin/AdminExpenses'));
+const AdminBilling = lazy(() => import('./pages/admin/AdminBilling'));
+const ResidentBilling = lazy(() => import('./pages/resident/ResidentBilling'));
+const GuardPortal = lazy(() => import('./pages/guard/GuardPortal'));
+const GateLogs = lazy(() => import('./pages/guard/GateLogs'));
 
 // Component to handle root redirect based on authentication
 const RootRedirect = () => {
@@ -94,7 +105,9 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <AppRoutes />
+        <Suspense fallback={<PageLoader />}>
+          <AppRoutes />
+        </Suspense>
       </BrowserRouter>
     </AuthProvider>
   );

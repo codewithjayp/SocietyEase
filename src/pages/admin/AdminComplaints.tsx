@@ -122,9 +122,9 @@ export default function AdminComplaints() {
                           'bg-green-500/20 text-green-300 border-green-500/30 focus:ring-green-500'
                         }`}
                       >
-                        <option value="pending" className="bg-[#020617]">Pending</option>
-                        <option value="in_progress" className="bg-[#020617]">In Progress</option>
-                        <option value="resolved" className="bg-[#020617]">Resolved</option>
+                        <option value="pending" className="bg-[#181c20]">Pending</option>
+                        <option value="in_progress" className="bg-[#181c20]">In Progress</option>
+                        <option value="resolved" className="bg-[#181c20]">Resolved</option>
                       </select>
                     </div>
                   </motion.div>

@@ -61,10 +61,10 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex w-full font-sans bg-[#020617] text-white selection:bg-indigo-500/30">
+    <div className="min-h-screen flex w-full font-sans bg-[#181c20] text-white selection:bg-indigo-500/30">
       {/* Left side - Decorative */}
       <div className="hidden lg:flex w-1/2 relative overflow-hidden items-center justify-center border-r border-white/10">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-[#020617] to-electric-900 z-0"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-[#181c20] to-electric-900 z-0"></div>
         {/* Animated Orbs */}
         <motion.div 
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -110,7 +110,7 @@ export default function Login() {
 
       {/* Right side - Login Form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-24 relative">
-        <div className="absolute inset-0 bg-[#020617] lg:hidden">
+        <div className="absolute inset-0 bg-[#181c20] lg:hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-[100px]"></div>
         </div>
 
@@ -185,11 +185,11 @@ export default function Login() {
             <Button 
               type="submit" 
               disabled={isLoading}
-              className="w-full h-12 bg-white text-[#020617] hover:bg-gray-100 hover:scale-[1.02] active:scale-[0.98] transition-all rounded-xl font-semibold text-base mt-4 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
+              className="w-full h-12 bg-white text-[#181c20] hover:bg-gray-100 hover:scale-[1.02] active:scale-[0.98] transition-all rounded-xl font-semibold text-base mt-4 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
             >
               {isLoading ? (
                 <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 border-2 border-[#020617]/30 border-t-[#020617] rounded-full animate-spin" />
+                  <div className="w-4 h-4 border-2 border-[#181c20]/30 border-t-[#181c20] rounded-full animate-spin" />
                   <span>Signing in...</span>
                 </div>
               ) : (

@@ -80,10 +80,10 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex w-full font-sans bg-[#020617] text-white selection:bg-indigo-500/30">
+    <div className="min-h-screen flex w-full font-sans bg-[#181c20] text-white selection:bg-indigo-500/30">
       {/* Left side - Form */}
       <div className="w-full lg:w-[55%] flex items-center justify-center p-8 lg:p-20 relative overflow-y-auto custom-scrollbar">
-        <div className="absolute inset-0 bg-[#020617] lg:hidden">
+        <div className="absolute inset-0 bg-[#181c20] lg:hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-[100px]"></div>
         </div>
 
@@ -122,7 +122,7 @@ export default function Register() {
                   Please verify your email before logging in.
                 </p>
                 <Link to="/login">
-                  <Button className="h-12 bg-white text-[#020617] hover:bg-gray-100 hover:scale-[1.02] transition-all rounded-xl font-semibold text-base px-8 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]">
+                  <Button className="h-12 bg-white text-[#181c20] hover:bg-gray-100 hover:scale-[1.02] transition-all rounded-xl font-semibold text-base px-8 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]">
                     Return to Sign In
                   </Button>
                 </Link>
@@ -181,9 +181,9 @@ export default function Register() {
                         onChange={(e) => setRole(e.target.value as Role)}
                         style={{ WebkitAppearance: 'none', MozAppearance: 'none' }}
                       >
-                        <option value="resident" className="bg-[#020617]">Resident</option>
-                        <option value="guard" className="bg-[#020617]">Security Guard</option>
-                        <option value="admin" className="bg-[#020617]">Administrator</option>
+                        <option value="resident" className="bg-[#181c20]">Resident</option>
+                        <option value="guard" className="bg-[#181c20]">Security Guard</option>
+                        <option value="admin" className="bg-[#181c20]">Administrator</option>
                       </select>
                     </div>
 
@@ -234,11 +234,11 @@ export default function Register() {
                   <Button 
                     type="submit" 
                     disabled={isLoading}
-                    className="w-full h-12 bg-white text-[#020617] hover:bg-gray-100 hover:scale-[1.02] active:scale-[0.98] transition-all rounded-xl font-semibold text-base mt-8 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
+                    className="w-full h-12 bg-white text-[#181c20] hover:bg-gray-100 hover:scale-[1.02] active:scale-[0.98] transition-all rounded-xl font-semibold text-base mt-8 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
                   >
                     {isLoading ? (
                       <div className="flex items-center space-x-2">
-                        <div className="w-4 h-4 border-2 border-[#020617]/30 border-t-[#020617] rounded-full animate-spin" />
+                        <div className="w-4 h-4 border-2 border-[#181c20]/30 border-t-[#181c20] rounded-full animate-spin" />
                         <span>Creating Account...</span>
                       </div>
                     ) : (
@@ -265,8 +265,8 @@ export default function Register() {
       </div>
 
       {/* Right side - Decorative (hidden on mobile) */}
-      <div className="hidden lg:flex w-[45%] relative overflow-hidden items-center justify-center border-l border-white/10 bg-[#020617]">
-        <div className="absolute inset-0 bg-gradient-to-bl from-indigo-900 via-[#020617] to-cyan-900 z-0"></div>
+      <div className="hidden lg:flex w-[45%] relative overflow-hidden items-center justify-center border-l border-white/10 bg-[#181c20]">
+        <div className="absolute inset-0 bg-gradient-to-bl from-indigo-900 via-[#181c20] to-cyan-900 z-0"></div>
         {/* Animated Orbs */}
         <motion.div 
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}

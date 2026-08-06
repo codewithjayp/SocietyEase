@@ -15,7 +15,7 @@ export default function MainLayout() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#020617]">
+      <div className="min-h-screen flex items-center justify-center bg-[#181c20]">
         <div className="h-10 w-10 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent"></div>
       </div>
     );
@@ -86,7 +86,7 @@ export default function MainLayout() {
   );
 
   return (
-    <div className="flex h-screen bg-[#020617] overflow-hidden selection:bg-indigo-500/30 selection:text-white font-sans text-white relative">
+    <div className="flex h-screen bg-[#181c20] overflow-hidden selection:bg-indigo-500/30 selection:text-white font-sans text-white relative">
       {/* Animated Background Orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <motion.div 
@@ -246,7 +246,7 @@ export default function MainLayout() {
           </button>
         </div>
 
-        <main className="flex-1 overflow-y-auto custom-scrollbar relative px-4 md:px-8 py-6 md:py-8">
+        <main className="flex-1 overflow-y-auto custom-scrollbar relative px-4 md:px-8 pt-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] md:py-8">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -254,7 +254,7 @@ export default function MainLayout() {
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             exit={{ opacity: 0, y: -15, filter: 'blur(4px)' }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="min-h-full max-w-7xl mx-auto pb-20"
+            className="min-h-full max-w-7xl mx-auto pb-10"
           >
             <Outlet />
           </motion.div>

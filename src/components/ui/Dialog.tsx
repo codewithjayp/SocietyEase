@@ -29,7 +29,7 @@ export function Dialog({ isOpen, onClose, children }: DialogProps) {
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
             className="relative z-50 w-full max-w-lg"
           >
-            <div className="bg-[#020617]/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 overflow-hidden text-white">
+            <div className="bg-[#181c20]/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 overflow-hidden text-white">
               {children}
             </div>
           </motion.div>

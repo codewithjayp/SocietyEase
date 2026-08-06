@@ -143,7 +143,7 @@ export default function AdminBilling() {
                 <Label htmlFor="resident">Select Resident</Label>
                 <select 
                   id="resident"
-                  className="flex h-10 w-full rounded-md border border-white/10 bg-[#020617] px-3 py-2 text-sm text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                  className="flex h-10 w-full rounded-md border border-white/10 bg-[#181c20] px-3 py-2 text-sm text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
                   value={selectedUser}
                   onChange={(e) => setSelectedUser(e.target.value)}
                   required
